@@ -23,7 +23,7 @@ int main(int argc, const char * argv[]) {
         // RKLogConfigureByName("RestKit/ObjectMapping/JSON", RKLogLevelWarning);
 
         // Initialize RestKit Object Manager
-        RKObjectManager *objectManager = [RKObjectManager managerWithBaseURLString:@"https://api.github.com"];
+        [RKObjectManager managerWithBaseURLString:@"https://api.github.com"];
 
         // Initialize RestKit Object Mappings
         // Github date format: 2012-07-05T09:43:24Z
