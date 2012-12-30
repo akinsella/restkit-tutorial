@@ -18,7 +18,7 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         initializeRestKit();
 
-        NSString *relativePath = [@"/orgs/:organization/repos" interpolateWithObject:@{@"organization": @"xebia-france"}];
+        NSString *relativePath = [@"/orgs/:organization/repos" interpolateWithObject:@{@"organization": @"facebook"}];
 
         XBRestkitService *restkitService = [[XBRestkitService alloc] init];
         [restkitService loadArrayOfDataWithRelativePath:relativePath
