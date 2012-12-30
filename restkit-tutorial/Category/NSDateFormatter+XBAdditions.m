@@ -8,7 +8,6 @@
 
 #import "NSDateFormatter+XBAdditions.h"
 
-
 @implementation NSDateFormatter (XBAdditions)
 
 +(NSDateFormatter *)initWithDateFormat:(NSString *)dateFormat {

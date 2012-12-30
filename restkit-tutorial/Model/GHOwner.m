@@ -6,14 +6,14 @@
 //  Copyright (c) 2012 Xebia France. All rights reserved.
 //
 
-#import "GHUser.h"
+#import "GHOwner.h"
 
-@implementation GHUser
+@implementation GHOwner
 
 + (RKObjectMapping *)mapping {
     RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[self class]
                                                      usingBlock:^(RKObjectMapping *mapping) {
-        [mapping mapAttributes:  @"login", @"gravatar_id", @"avatar_url", @"url", nil];
+        [mapping mapAttributes:  @"login", @"gravatar_id", @"avatar_url", @"type", nil];
         [mapping mapKeyPathsToAttributes:  @"id", @"identifier", nil];
     }];
     return mapping;
