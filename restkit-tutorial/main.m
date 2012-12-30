@@ -11,28 +11,12 @@
 #import "GHRepository.h"
 #import "NSDateFormatter+XBAdditions.h"
 
+void initializeRestKit();
+
 int main(int argc, const char * argv[]) {
 
     @autoreleasepool {
-
-        // Initialize RestKit loggers
-        RKLogConfigureByName("RestKit/*", RKLogLevelInfo);
-        // RKLogConfigureByName("RestKit/UI", RKLogLevelWarning);
-        // RKLogConfigureByName("RestKit/Network", RKLogLevelWarning);
-        // RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelWarning);
-        // RKLogConfigureByName("RestKit/ObjectMapping/JSON", RKLogLevelWarning);
-
-        // Initialize RestKit Object Manager
-        [RKObjectManager managerWithBaseURLString:@"https://api.github.com"];
-
-        // Initialize RestKit Object Mappings
-        // Github date format: 2012-07-05T09:43:24Z
-        // Already available in Restkit default formatters
-        [RKObjectMapping addDefaultDateFormatter: [NSDateFormatter initWithDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"]];
-
-        RKObjectMappingProvider *omp = [RKObjectManager sharedManager].mappingProvider;
-        [omp addObjectMapping:[GHRepository mapping]];
-        [omp setObjectMapping:[GHRepository mapping] forResourcePathPattern:@"/orgs/:organization/repos"];
+        initializeRestKit();
 
         NSString *relativePath = [@"/orgs/:organization/repos" interpolateWithObject:@{@"organization": @"xebia-france"}];
 
@@ -47,7 +31,7 @@ int main(int argc, const char * argv[]) {
              }
             onError:^(NSError *error) {
                 NSLog(@"%@", error);
-               CFRunLoopStop(CFRunLoopGetMain());
+                CFRunLoopStop(CFRunLoopGetMain());
             }
         ];
 
@@ -55,4 +39,24 @@ int main(int argc, const char * argv[]) {
     }
 
     return 0;
+}
+
+void initializeRestKit() {// Initialize RestKit loggers
+    RKLogConfigureByName("RestKit/*", RKLogLevelInfo);
+    // RKLogConfigureByName("RestKit/UI", RKLogLevelWarning);
+    // RKLogConfigureByName("RestKit/Network", RKLogLevelWarning);
+    // RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelWarning);
+    // RKLogConfigureByName("RestKit/ObjectMapping/JSON", RKLogLevelWarning);
+
+    // Initialize RestKit Object Manager
+    [RKObjectManager managerWithBaseURLString:@"https://api.github.com"];
+
+    // Initialize RestKit Object Mappings
+    // Github date format: 2012-07-05T09:43:24Z
+    // Already available in Restkit default formatters
+    [RKObjectMapping addDefaultDateFormatter: [NSDateFormatter initWithDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"]];
+
+    RKObjectMappingProvider *omp = [RKObjectManager sharedManager].mappingProvider;
+    [omp addObjectMapping:[GHRepository mapping]];
+    [omp setObjectMapping:[GHRepository mapping] forResourcePathPattern:@"/orgs/:organization/repos"];
 }
